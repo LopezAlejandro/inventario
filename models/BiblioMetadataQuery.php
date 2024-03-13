@@ -3,11 +3,11 @@
 namespace app\models;
 
 /**
- * This is the ActiveQuery class for [[Items]].
+ * This is the ActiveQuery class for [[BiblioMetadata]].
  *
- * @see Items
+ * @see BiblioMetadata
  */
-class ItemsQuery extends \yii\db\ActiveQuery
+class BiblioMetadataQuery extends \yii\db\ActiveQuery
 {
     /*public function active()
     {
@@ -17,7 +17,7 @@ class ItemsQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Items[]|array
+     * @return BiblioMetadata[]|array
      */
     public function all($db = null)
     {
@@ -26,7 +26,7 @@ class ItemsQuery extends \yii\db\ActiveQuery
 
     /**
      * @inheritdoc
-     * @return Items|array|null
+     * @return BiblioMetadata|array|null
      */
     public function one($db = null)
     {

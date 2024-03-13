@@ -2,28 +2,29 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Biblio;
 
 /**
- * BiblioSearch represents the model behind the search form of `app\models\Biblio`.
+ * app\models\BiblioSearch represents the model behind the search form about `app\models\Biblio`.
  */
-class BiblioSearch extends Biblio
+ class BiblioSearch extends Biblio
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['biblionumber', 'serial', 'copyrightdate'], 'integer'],
-            [['frameworkcode', 'author', 'title', 'medium', 'subtitle', 'part_number', 'part_name', 'unititle', 'notes', 'seriestitle', 'timestamp', 'datecreated', 'abstract'], 'safe'],
+            [['biblionumber', 'copyrightdate'], 'integer'],
+            [['frameworkcode', 'author', 'title', 'medium', 'subtitle', 'part_number', 'part_name', 'unititle', 'notes', 'serial', 'seriestitle', 'timestamp', 'datecreated', 'abstract'], 'safe'],
         ];
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function scenarios()
     {
@@ -42,8 +43,6 @@ class BiblioSearch extends Biblio
     {
         $query = Biblio::find();
 
-        // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -56,10 +55,8 @@ class BiblioSearch extends Biblio
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'biblionumber' => $this->biblionumber,
-            'serial' => $this->serial,
             'copyrightdate' => $this->copyrightdate,
             'timestamp' => $this->timestamp,
             'datecreated' => $this->datecreated,
@@ -74,6 +71,7 @@ class BiblioSearch extends Biblio
             ->andFilterWhere(['like', 'part_name', $this->part_name])
             ->andFilterWhere(['like', 'unititle', $this->unititle])
             ->andFilterWhere(['like', 'notes', $this->notes])
+            ->andFilterWhere(['like', 'serial', $this->serial])
             ->andFilterWhere(['like', 'seriestitle', $this->seriestitle])
             ->andFilterWhere(['like', 'abstract', $this->abstract]);
 
