@@ -3,16 +3,16 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Biblio;
-use app\models\BiblioSearch;
+use app\models\BiblioItems;
+use app\models\BiblioItemsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * BiblioController implements the CRUD actions for Biblio model.
+ * BiblioItemsController implements the CRUD actions for BiblioItems model.
  */
-class BiblioController extends Controller
+class BiblioItemsController extends Controller
 {
     public function behaviors()
     {
@@ -27,12 +27,12 @@ class BiblioController extends Controller
     }
 
     /**
-     * Lists all Biblio models.
+     * Lists all BiblioItems models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new BiblioSearch();
+        $searchModel = new BiblioItemsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -42,41 +42,33 @@ class BiblioController extends Controller
     }
 
     /**
-     * Displays a single Biblio model.
+     * Displays a single BiblioItems model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $providerBiblioMetadata = new \yii\data\ArrayDataProvider([
-            'allModels' => $model->biblioMetadatas,
-        ]);
-        $providerBiblioitems = new \yii\data\ArrayDataProvider([
-            'allModels' => $model->biblioitems,
-        ]);
         $providerItems = new \yii\data\ArrayDataProvider([
             'allModels' => $model->items,
         ]);
         return $this->render('view', [
             'model' => $this->findModel($id),
-            'providerBiblioMetadata' => $providerBiblioMetadata,
-            'providerBiblioitems' => $providerBiblioitems,
             'providerItems' => $providerItems,
         ]);
     }
 
     /**
-     * Creates a new Biblio model.
+     * Creates a new BiblioItems model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Biblio();
+        $model = new BiblioItems();
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-            return $this->redirect(['view', 'id' => $model->biblionumber]);
+            return $this->redirect(['view', 'id' => $model->biblioitemnumber]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -85,7 +77,7 @@ class BiblioController extends Controller
     }
 
     /**
-     * Updates an existing Biblio model.
+     * Updates an existing BiblioItems model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -95,7 +87,7 @@ class BiblioController extends Controller
         $model = $this->findModel($id);
 
         if ($model->loadAll(Yii::$app->request->post()) && $model->saveAll()) {
-            return $this->redirect(['view', 'id' => $model->biblionumber]);
+            return $this->redirect(['view', 'id' => $model->biblioitemnumber]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -104,7 +96,7 @@ class BiblioController extends Controller
     }
 
     /**
-     * Deletes an existing Biblio model.
+     * Deletes an existing BiblioItems model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -118,26 +110,18 @@ class BiblioController extends Controller
     
     /**
      * 
-     * Export Biblio information into PDF format.
+     * Export BiblioItems information into PDF format.
      * @param integer $id
      * @return mixed
      */
     public function actionPdf($id) {
         $model = $this->findModel($id);
-        $providerBiblioMetadata = new \yii\data\ArrayDataProvider([
-            'allModels' => $model->biblioMetadatas,
-        ]);
-        $providerBiblioitems = new \yii\data\ArrayDataProvider([
-            'allModels' => $model->biblioitems,
-        ]);
         $providerItems = new \yii\data\ArrayDataProvider([
             'allModels' => $model->items,
         ]);
 
         $content = $this->renderAjax('_pdf', [
             'model' => $model,
-            'providerBiblioMetadata' => $providerBiblioMetadata,
-            'providerBiblioitems' => $providerBiblioitems,
             'providerItems' => $providerItems,
         ]);
 
@@ -161,62 +145,16 @@ class BiblioController extends Controller
 
     
     /**
-     * Finds the Biblio model based on its primary key value.
+     * Finds the BiblioItems model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Biblio the loaded model
+     * @return BiblioItems the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Biblio::findOne($id)) !== null) {
+        if (($model = BiblioItems::findOne($id)) !== null) {
             return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-    
-    /**
-    * Action to load a tabular form grid
-    * for BiblioMetadata
-    * @author Yohanes Candrajaya <moo.tensai@gmail.com>
-    * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
-    *
-    * @return mixed
-    */
-    public function actionAddBiblioMetadata()
-    {
-        if (Yii::$app->request->isAjax) {
-            $row = Yii::$app->request->post('BiblioMetadata');
-            if (!empty($row)) {
-                $row = array_values($row);
-            }
-            if((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
-                $row[] = [];
-            return $this->renderAjax('_formBiblioMetadata', ['row' => $row]);
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-    
-    /**
-    * Action to load a tabular form grid
-    * for Biblioitems
-    * @author Yohanes Candrajaya <moo.tensai@gmail.com>
-    * @author Jiwantoro Ndaru <jiwanndaru@gmail.com>
-    *
-    * @return mixed
-    */
-    public function actionAddBiblioitems()
-    {
-        if (Yii::$app->request->isAjax) {
-            $row = Yii::$app->request->post('Biblioitems');
-            if (!empty($row)) {
-                $row = array_values($row);
-            }
-            if((Yii::$app->request->post('isNewRecord') && Yii::$app->request->post('_action') == 'load' && empty($row)) || Yii::$app->request->post('_action') == 'add')
-                $row[] = [];
-            return $this->renderAjax('_formBiblioitems', ['row' => $row]);
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
