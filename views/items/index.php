@@ -7,8 +7,9 @@
 use yii\helpers\Html;
 use kartik\export\ExportMenu;
 use kartik\grid\GridView;
+use diecoding\barcode\generator\Barcode;
 
-$this->title = 'Items';
+$this->title = 'Datos de los items';
 $this->params['breadcrumbs'][] = $this->title;
 $search = "$('.search-button').click(function(){
 	$('.search-form').toggle(1000);
@@ -22,7 +23,8 @@ $this->registerJs($search);
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Items', ['create'], ['class' => 'btn btn-success']) ?>
+
+        <!-- <?= Html::a('Create Items', ['create'], ['class' => 'btn btn-success']) ?>  -->
         <?= Html::a('Advance Search', '#', ['class' => 'btn btn-info search-button']) ?>
     </p>
     <div class="search-form" style="display:none">
@@ -30,7 +32,7 @@ $this->registerJs($search);
     </div>
     <?php 
     $gridColumn = [
-        ['class' => 'yii\grid\SerialColumn'],
+       // ['class' => 'yii\grid\SerialColumn'],
         [
             'class' => 'kartik\grid\ExpandRowColumn',
             'width' => '50px',
@@ -43,10 +45,10 @@ $this->registerJs($search);
             'headerOptions' => ['class' => 'kartik-sheet-style'],
             'expandOneOnly' => true
         ],
-        'itemnumber',
+        //'itemnumber',
         [
                 'attribute' => 'biblionumber',
-                'label' => 'Biblionumber',
+                'label' => 'Título',
                 'value' => function($model){                   
                     return $model->biblionumber0->title;                   
                 },
@@ -64,11 +66,37 @@ $this->registerJs($search);
                     return $model->biblioitemnumber0->biblioitemnumber;                   
                 },
                 'filterType' => GridView::FILTER_SELECT2,
-                'filter' => \yii\helpers\ArrayHelper::map(\app\models\Biblioitems::find()->asArray()->all(), 'biblioitemnumber', 'biblioitemnumber'),
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\BiblioItems::find()->asArray()->all(), 'biblioitemnumber', 'biblioitemnumber'),
                 'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' => true],
                 ],
                 'filterInputOptions' => ['placeholder' => 'Biblioitems', 'id' => 'grid-items-search-biblioitemnumber']
+            ],
+            [
+                'attribute' => 'ejemplar',
+                'label' => 'Ej.',
+                'value' => function($model){                   
+                    return $model->biblioitemnumber0->number;                   
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\BiblioItems::find()->asArray()->all(), 'biblioitemnumber', 'number'),
+                'filterWidgetOptions' => [
+                    'pluginOptions' => ['allowClear' => true],
+                ],
+                'filterInputOptions' => ['placeholder' => 'Ejemplar', 'id' => 'grid-items-search-biblioitemnumber']
+            ],
+            [
+                'attribute' => 'volume',
+                'label' => 'Vol.',
+                'value' => function($model){                   
+                    return $model->biblioitemnumber0->volume;                   
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\BiblioItems::find()->asArray()->all(), 'biblioitemnumber', 'volume'),
+                'filterWidgetOptions' => [
+                    'pluginOptions' => ['allowClear' => true],
+                ],
+                'filterInputOptions' => ['placeholder' => 'Volumen', 'id' => 'grid-items-search-biblioitemnumber']
             ],
         'barcode',
         'dateaccessioned',

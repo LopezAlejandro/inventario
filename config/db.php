@@ -2,9 +2,9 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=Nombre de la base',
-    'username' => 'Usuario de la base',
-    'password' => '',
+    'dsn' => 'mysql:host=localhost;dbname=inventario',
+    'username' => 'root',
+    'password' => 'r31n4d0',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)

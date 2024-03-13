@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f2c60cc34692cfb28b6b2e555ead522",
+    "content-hash": "3c6227650099ce65139519e08ae258be",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -203,6 +203,59 @@
                 "source": "https://github.com/creocoder/yii2-nested-sets/tree/master"
             },
             "time": "2015-01-27T10:53:51+00:00"
+        },
+        {
+            "name": "diecoding/yii2-barcode-generator",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sugeng-sulistiyawan/yii2-barcode-generator.git",
+                "reference": "b9a2f1e571f3af63b7da21ab826871f16fedb68d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sugeng-sulistiyawan/yii2-barcode-generator/zipball/b9a2f1e571f3af63b7da21ab826871f16fedb68d",
+                "reference": "b9a2f1e571f3af63b7da21ab826871f16fedb68d",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/jsbarcode": "~3.11",
+                "php": ">=7.4.0",
+                "yiisoft/yii2": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~9.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "diecoding\\barcode\\generator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sugeng Sulistiyawan",
+                    "email": "sugeng.sulistiyawan@gmail.com"
+                }
+            ],
+            "description": "The JavaScript Barcode Generator for Yii2",
+            "keywords": [
+                "barcode",
+                "barcode-generator",
+                "javascript",
+                "javascript-library",
+                "widget",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/sugeng-sulistiyawan/yii2-barcode-generator/issues",
+                "source": "https://github.com/sugeng-sulistiyawan/yii2-barcode-generator"
+            },
+            "time": "2023-04-28T03:24:43+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -3285,6 +3338,18 @@
                 }
             ],
             "time": "2023-03-08T13:26:56+00:00"
+        },
+        {
+            "name": "npm-asset/jsbarcode",
+            "version": "3.11.6",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/jsbarcode/-/jsbarcode-3.11.6.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
         },
         {
             "name": "paragonie/random_compat",

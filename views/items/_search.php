@@ -26,7 +26,7 @@ use yii\widgets\ActiveForm;
     ]); ?>
 
     <?= $form->field($model, 'biblioitemnumber')->widget(\kartik\widgets\Select2::classname(), [
-        'data' => \yii\helpers\ArrayHelper::map(\app\models\Biblioitems::find()->orderBy('biblioitemnumber')->asArray()->all(), 'biblioitemnumber', 'biblioitemnumber'),
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\BiblioItems::find()->orderBy('biblioitemnumber')->asArray()->all(), 'biblioitemnumber', 'biblioitemnumber'),
         'options' => ['placeholder' => 'Choose Biblioitems'],
         'pluginOptions' => [
             'allowClear' => true

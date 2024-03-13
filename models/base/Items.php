@@ -175,7 +175,7 @@ class Items extends \yii\db\ActiveRecord
      */
     public function getBiblioitemnumber0()
     {
-        return $this->hasOne(\app\models\Biblioitems::className(), ['biblioitemnumber' => 'biblioitemnumber']);
+        return $this->hasOne(\app\models\BiblioItems::className(), ['biblioitemnumber' => 'biblioitemnumber']);
     }
         
     /**
